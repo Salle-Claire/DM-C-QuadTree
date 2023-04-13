@@ -1,5 +1,6 @@
 #include "../include/Moteur.h"
 #include "../include/Entree_Sortie.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -7,7 +8,8 @@ int main() {
     Point *tab_point;
     Distribution d = SOURIS;
     QuadTree quadtree;
-    Cellule *tab_cell; 
+    Cellule *tab_cell;
+    int res=0;
     
     srand(time(NULL));
 
@@ -21,12 +23,12 @@ int main() {
         free(tab_point);
         exit(EXIT_FAILURE);
     }
-    remplissage_tab_cell(tab_cell, tab_point);
 
 
     /* Initialisation du QuadTree */
     if(init_quadtree(&quadtree) == 0) {
         free(tab_point);
+        free(tab_cell);
         exit(EXIT_FAILURE);
     }
 
@@ -41,13 +43,28 @@ int main() {
             case SOURIS:
                 tab_point[i] = recupPointClic();
                 break;
+            default:
+                exit(EXIT_FAILURE);
         }
         /* affichage du point */
         afficherPoint(tab_point[i]);
+        /* lien avec tab_cell */
+        tab_cell[i].point = tab_point[i];
+        /* ajout dans quadtree */
+        res = ajout(quadtree.tab_noeud, &tab_cell[i]);
+        if(res < 0) {
+            printf("avant du coup %d\n", res);
+            return 0;
+        }
+        if (res == 2) quadtree.dernier+=4;
+        affiche_quadtree(quadtree);
     }
 
 
     fermeture_fenetre();
+    free(tab_point);
+    free(tab_cell);
+    free(quadtree.tab_noeud);
 
     return 0;
 }
