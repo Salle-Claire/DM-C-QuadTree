@@ -20,22 +20,22 @@
  * de la fenêtre
  * @remark il s'agit d'une puisse de 4
  */
-#define TAILLE_FENETRE 512
+#define TAILLE_FENETRE 1024
 
 /**
  * @brief la taille d'une feuille,
  * autrement appelé arret de subdivision
  * @remark il s'agit d'une puissance de 4
  */
-#define TAILLE_FEUILLE 1
+#define TAILLE_FEUILLE 8
 
-#define NB_POINT_TOTAL 20
+#define NB_POINT_TOTAL 20000
 
 /**
  * @brief le nombre maximum de points
  * que peut contenir une feuille
  */
-#define NB_POINT_FEUILLE 3
+#define NB_POINT_FEUILLE 10
 
 typedef enum {
     HAUT_GAUCHE,
@@ -133,7 +133,7 @@ int indice_enfant(Partie_geographique p, int indice);
  * @param indice_fils 
  * @param p 
  */
-void init_fils(Noeud *tab_noeud, int indice_fils, Partie_geographique p);
+void init_fils(QuadTree *quadtree, Noeud *tab_noeud, int indice_fils, Partie_geographique p);
 
 /**
  * @brief Mets à jour le tableau de noeud
@@ -143,7 +143,7 @@ void init_fils(Noeud *tab_noeud, int indice_fils, Partie_geographique p);
  * le point à ajouter
  * @return int 
  */
-int ajout(Noeud *tab_noeud, Cellule *cell);
+int ajout(QuadTree *quadtree, Noeud *tab_noeud, Cellule *cell);
 
 /**
  * @brief Affiche le quadtree, c'est-à-dire

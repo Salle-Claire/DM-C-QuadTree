@@ -50,6 +50,8 @@ Point recupPointClic();
  */
 void afficherPoint(Point point);
 
+void afficherQuadTree(QuadTree *quadtree, int indice);
+
 /**
  * @brief Ferme la fenêtre
  */

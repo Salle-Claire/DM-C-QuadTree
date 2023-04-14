@@ -6,7 +6,7 @@
 
 int main() {
     Point *tab_point;
-    Distribution d = SOURIS;
+    Distribution d = ALEATOIRE;
     QuadTree quadtree;
     Cellule *tab_cell;
     int res=0;
@@ -51,13 +51,16 @@ int main() {
         /* lien avec tab_cell */
         tab_cell[i].point = tab_point[i];
         /* ajout dans quadtree */
-        res = ajout(quadtree.tab_noeud, &tab_cell[i]);
+        res = ajout(&quadtree, quadtree.tab_noeud, &tab_cell[i]);
         if(res < 0) {
             printf("avant du coup %d\n", res);
-            return 0;
         }
-        if (res == 2) quadtree.dernier+=4;
-        affiche_quadtree(quadtree);
+        afficherQuadTree(&quadtree, res);
+        // affiche_quadtree(quadtree);
+        printf("res : %d\n", res);
+        printf("dernier %d\n", quadtree.dernier);
+    MLV_update_window();
+
     }
 
 
